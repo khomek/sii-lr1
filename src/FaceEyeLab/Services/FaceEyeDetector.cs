@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
+using Emgu.CV.Util;
 using FaceEyeLab.Models;
 
 namespace FaceEyeLab.Services;
@@ -19,9 +20,33 @@ public sealed class FaceEyeDetector : IDisposable
         foreach (string path in new[] { facePath, eyePath })
             if (!File.Exists(path))
                 throw new FileNotFoundException("Не найден XML-каскад. Пересоберите проект.", path);
-        faceCascade = new CascadeClassifier(facePath);
-        try { eyeCascade = new CascadeClassifier(eyePath); }
+        faceCascade = LoadCascade(facePath);
+        try { eyeCascade = LoadCascade(eyePath); }
         catch { faceCascade.Dispose(); throw; }
+    }
+
+    private static CascadeClassifier LoadCascade(string path)
+    {
+        // Чтение средствами .NET не зависит от кодировки пути в нативном OpenCV.
+        string xml = File.ReadAllText(path);
+        string message = $"Не удалось загрузить каскад {Path.GetFileName(path)}. " +
+            "Проверьте XML-файл и пересоберите проект.";
+        if (string.IsNullOrWhiteSpace(xml)) throw new InvalidDataException(message);
+        try
+        {
+            using var storage = new FileStorage(xml, FileStorage.Mode.Read | FileStorage.Mode.Memory);
+            if (!storage.IsOpened) throw new InvalidDataException(message);
+            using var node = storage.GetFirstTopLevelNode();
+            var classifier = new CascadeClassifier();
+            try
+            {
+                // Конструктор с именем файла сам по себе не подтверждает успешную загрузку.
+                if (node.IsEmpty || !classifier.Read(node)) throw new InvalidDataException(message);
+                return classifier;
+            }
+            catch { classifier.Dispose(); throw; }
+        }
+        catch (CvException ex) { throw new InvalidDataException(message, ex); }
     }
 
     public static string DefaultCascadeDirectory => Path.Combine(AppContext.BaseDirectory, "Assets", "Cascades");

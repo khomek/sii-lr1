@@ -3,6 +3,7 @@ using System.Drawing.Imaging;
 using Emgu.CV;
 using FaceEyeLab.Models;
 using FaceEyeLab.Services;
+using FaceEyeLab.Diagnostics;
 
 namespace FaceEyeLab;
 
@@ -49,9 +50,11 @@ public partial class MainForm : Form
         try { await command(); }
         catch (Exception ex)
         {
+            string log = ErrorLog.Record(ex, "Выполнение действия");
             await StopStreamAsync();
-            statusLabel.Text = "Ошибка: " + ex.Message;
-            MessageBox.Show(this, ex.Message, "Не удалось выполнить действие", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            statusLabel.Text = "Ошибка: " + ErrorLog.Describe(ex);
+            MessageBox.Show(this, ErrorLog.Describe(ex) + "\n\nЖурнал: " + log,
+                "Не удалось выполнить действие", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
         finally { commandBusy = false; UpdateControls(); }
     }
@@ -61,7 +64,7 @@ public partial class MainForm : Form
         await StopStreamAsync();
         statusLabel.Text = "Открытие камеры…";
         source = await Task.Run(() => { _ = Detector; return FrameSource.OpenCamera(); });
-        StartStream("Камера компьютера: обработка в реальном времени");
+        StartStream($"Камера компьютера ({source.BackendName}): обработка в реальном времени");
     }
 
     private async Task OpenPhotoAsync()
@@ -128,8 +131,11 @@ public partial class MainForm : Form
         }
         catch (Exception ex)
         {
+            string log = ErrorLog.Record(ex, "Обработка кадра камеры");
             await StopStreamAsync();
-            statusLabel.Text = "Ошибка видеопотока: " + ex.Message;
+            statusLabel.Text = "Ошибка видеопотока: " + ErrorLog.Describe(ex);
+            MessageBox.Show(this, ErrorLog.Describe(ex) + "\n\nЖурнал: " + log,
+                "Ошибка видеопотока", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
         finally { pendingFrame = null; UpdateControls(); }
     }

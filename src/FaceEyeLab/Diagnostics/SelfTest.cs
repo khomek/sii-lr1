@@ -30,6 +30,16 @@ internal static class SelfTest
                     $"faces={result.Faces.Count}; eyes={result.EyeCount}; ms={result.Milliseconds:F2}");
             }
 
+            // Путь проекта на другом компьютере может содержать кириллицу.
+            string unicodeCascades = Path.Combine(output, "каскады Хаара");
+            Directory.CreateDirectory(unicodeCascades);
+            foreach (string path in Directory.GetFiles(FaceEyeDetector.DefaultCascadeDirectory, "*.xml"))
+                File.Copy(path, Path.Combine(unicodeCascades, Path.GetFileName(path)), true);
+            using (var unicodeDetector = new FaceEyeDetector(unicodeCascades))
+            using (var result = unicodeDetector.Process(portrait))
+                Check("unicode-cascades", result.Faces.Count == 1 && result.EyeCount == 2,
+                    "Cascade models load and detect correctly from a Cyrillic directory.");
+
             // Второй пример — явно обозначенный коллаж двух копий тестового портрета.
             using var pair = new Mat(new Size(1024, 512), DepthType.Cv8U, 3);
             using (var left = new Mat(pair, new Rectangle(0, 0, 512, 512))) portrait.CopyTo(left);
@@ -67,6 +77,22 @@ internal static class SelfTest
             try { using var ignored = new FaceEyeDetector(Path.Combine(output, "missing-cascades")); }
             catch (FileNotFoundException) { missingRejected = true; }
             Check("missing-cascade", missingRejected, "Missing model gives an explicit error.");
+
+            // XML может существовать, но не содержать загружаемый классификатор.
+            foreach (string invalidName in new[] { "haarcascade_frontalface_default.xml", "haarcascade_eye_tree_eyeglasses.xml" })
+            {
+                string invalidDirectory = Path.Combine(output, "invalid-" + Path.GetFileNameWithoutExtension(invalidName));
+                Directory.CreateDirectory(invalidDirectory);
+                foreach (string path in Directory.GetFiles(FaceEyeDetector.DefaultCascadeDirectory, "*.xml"))
+                    File.Copy(path, Path.Combine(invalidDirectory, Path.GetFileName(path)), true);
+                File.WriteAllText(Path.Combine(invalidDirectory, invalidName),
+                    "<?xml version=\"1.0\"?><opencv_storage><placeholder>1</placeholder></opencv_storage>");
+                bool rejected = false;
+                try { using var ignored = new FaceEyeDetector(invalidDirectory); }
+                catch (InvalidDataException ex) { rejected = ex.Message.Contains(invalidName); }
+                Check("invalid-" + Path.GetFileNameWithoutExtension(invalidName), rejected,
+                    "Invalid classifier is rejected during loading with its filename, before opening the camera.");
+            }
 
             string unicodePath = Path.Combine(output, "тест изображения.jpg");
             File.Copy(Path.Combine(samples, "portrait.jpg"), unicodePath, true);

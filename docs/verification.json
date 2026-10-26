@@ -5,12 +5,17 @@
     {
       "Name": "portrait",
       "Passed": true,
-      "Details": "faces=1; eyes=2; ms=584,95"
+      "Details": "faces=1; eyes=2; ms=429,55"
+    },
+    {
+      "Name": "unicode-cascades",
+      "Passed": true,
+      "Details": "Cascade models load and detect correctly from a Cyrillic directory."
     },
     {
       "Name": "two-faces",
       "Passed": true,
-      "Details": "faces=2; eyes=4; ms=61,65"
+      "Details": "faces=2; eyes=4; ms=47,41"
     },
     {
       "Name": "coordinates",
@@ -36,6 +41,16 @@
       "Name": "missing-cascade",
       "Passed": true,
       "Details": "Missing model gives an explicit error."
+    },
+    {
+      "Name": "invalid-haarcascade_frontalface_default",
+      "Passed": true,
+      "Details": "Invalid classifier is rejected during loading with its filename, before opening the camera."
+    },
+    {
+      "Name": "invalid-haarcascade_eye_tree_eyeglasses",
+      "Passed": true,
+      "Details": "Invalid classifier is rejected during loading with its filename, before opening the camera."
     },
     {
       "Name": "unicode-path",

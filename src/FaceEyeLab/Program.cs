@@ -10,6 +10,8 @@ internal static class Program
         ApplicationConfiguration.Initialize();
         if (args.Length > 0 && args[0] == "--self-test")
             return SelfTest.Run(args.Length > 1 ? args[1] : "TestResults");
+        if (args.Length > 0 && args[0] == "--camera-test")
+            return CameraDiagnostic.Run(args.Length > 1 ? args[1] : "TestResults");
 
         Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
         Application.ThreadException += (_, e) => MessageBox.Show(e.Exception.Message,

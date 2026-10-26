@@ -1,0 +1,97 @@
+{
+  "Success": true,
+  "Stage": "complete",
+  "Frames": [
+    {
+      "Number": 1,
+      "Width": 640,
+      "Height": 480,
+      "Backend": "DShow",
+      "Channels": 3,
+      "Faces": 0,
+      "Eyes": 0
+    },
+    {
+      "Number": 2,
+      "Width": 640,
+      "Height": 480,
+      "Backend": "DShow",
+      "Channels": 3,
+      "Faces": 0,
+      "Eyes": 0
+    },
+    {
+      "Number": 3,
+      "Width": 640,
+      "Height": 480,
+      "Backend": "DShow",
+      "Channels": 3,
+      "Faces": 0,
+      "Eyes": 0
+    },
+    {
+      "Number": 4,
+      "Width": 640,
+      "Height": 480,
+      "Backend": "DShow",
+      "Channels": 3,
+      "Faces": 0,
+      "Eyes": 0
+    },
+    {
+      "Number": 5,
+      "Width": 640,
+      "Height": 480,
+      "Backend": "DShow",
+      "Channels": 3,
+      "Faces": 0,
+      "Eyes": 0
+    },
+    {
+      "Number": 6,
+      "Width": 640,
+      "Height": 480,
+      "Backend": "DShow",
+      "Channels": 3,
+      "Faces": 0,
+      "Eyes": 0
+    },
+    {
+      "Number": 7,
+      "Width": 640,
+      "Height": 480,
+      "Backend": "DShow",
+      "Channels": 3,
+      "Faces": 0,
+      "Eyes": 0
+    },
+    {
+      "Number": 8,
+      "Width": 640,
+      "Height": 480,
+      "Backend": "DShow",
+      "Channels": 3,
+      "Faces": 0,
+      "Eyes": 0
+    },
+    {
+      "Number": 9,
+      "Width": 640,
+      "Height": 480,
+      "Backend": "DShow",
+      "Channels": 3,
+      "Faces": 0,
+      "Eyes": 0
+    },
+    {
+      "Number": 10,
+      "Width": 640,
+      "Height": 480,
+      "Backend": "DShow",
+      "Channels": 3,
+      "Faces": 0,
+      "Eyes": 0
+    }
+  ],
+  "Error": null
+}
