@@ -1,0 +1,56 @@
+{
+  "Success": true,
+  "CameraTested": false,
+  "Checks": [
+    {
+      "Name": "portrait",
+      "Passed": true,
+      "Details": "faces=1; eyes=2; ms=584,95"
+    },
+    {
+      "Name": "two-faces",
+      "Passed": true,
+      "Details": "faces=2; eyes=4; ms=61,65"
+    },
+    {
+      "Name": "coordinates",
+      "Passed": true,
+      "Details": "All face and eye rectangles fit inside the original image and face ROI."
+    },
+    {
+      "Name": "blank",
+      "Passed": true,
+      "Details": "Uniform frame has no detections."
+    },
+    {
+      "Name": "gray-frame",
+      "Passed": true,
+      "Details": "Single-channel input is accepted with the same fixed face and eye detection."
+    },
+    {
+      "Name": "empty-frame",
+      "Passed": true,
+      "Details": "Empty input is rejected."
+    },
+    {
+      "Name": "missing-cascade",
+      "Passed": true,
+      "Details": "Missing model gives an explicit error."
+    },
+    {
+      "Name": "unicode-path",
+      "Passed": true,
+      "Details": "Cyrillic image paths work."
+    },
+    {
+      "Name": "invalid-image",
+      "Passed": true,
+      "Details": "Corrupted image is rejected."
+    },
+    {
+      "Name": "windows-form",
+      "Passed": true,
+      "Details": "Both examples processed through MainForm.LoadPhotoAsync and rendered."
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaceEyeLab", "src\FaceEyeLab\FaceEyeLab.csproj", "{72C8CDB8-F481-46A7-B7DD-FA6A3188C1AA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Документация", "Документация", "{A8FA2DE8-976F-48CB-8467-90FF6320598A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{72C8CDB8-F481-46A7-B7DD-FA6A3188C1AA}.Debug|x64.ActiveCfg = Debug|x64
+		{72C8CDB8-F481-46A7-B7DD-FA6A3188C1AA}.Debug|x64.Build.0 = Debug|x64
+		{72C8CDB8-F481-46A7-B7DD-FA6A3188C1AA}.Release|x64.ActiveCfg = Release|x64
+		{72C8CDB8-F481-46A7-B7DD-FA6A3188C1AA}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
